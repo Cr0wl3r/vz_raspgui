@@ -19,18 +19,23 @@ my $time=time;
  #Beispiel für Config
  #$content_json = get("http://heizung.chroszewski.de/middleware.php/data/a301d8d0-903b-1234-94bb-d943d061b6a8.json?from=now");
 
- my $frontend_http = 'http://heizung.chroszewski.de/middleware.php/data/';
- my $uuid = 'a301d8d0-903b-1234-94bb-d943d061b6a8';
+my $frontend_http = 'http://heizung.chroszewski.de/middleware.php/data/';
+my $uuid = 'a301d8d0-903b-1234-94bb-d943d061b6a8';
 
-my $http_get = $frontend_http.$uuid.".json?from=$time";
+#my $http_get = $frontend_http.$uuid.".json?from=now";
+my $http_get = $frontend_http.$uuid.".json?from=today&tuples=24";
+
 #print "$http_get\n";
 my $content_json = get($http_get);
  die "Couldn't get it!" unless defined $content_json;
 
-print "$content_json\n";
- 
 my $text = decode_json($content_json);
-print Dumper($text);
+# Only for debugging:
+#print "$content_json\n";
+#print Dumper($text);
 
-print $text->{data}{consumption}, "\n";
+print "Max:         " . $text->{data}{max}[1], "\n";
+print "Min:         " . $text->{data}{min}[1], "\n";
+print "Average:     " . $text->{data}{average}, "\n";
+print "Comsumption: " . $text->{data}{consumption}, "\n";
 
