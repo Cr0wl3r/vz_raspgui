@@ -1,13 +1,18 @@
 #!/usr/bin/perl
+package getvzdata;
+
 use strict;
 use warnings;
+
+sub strom {
 use LWP::Simple;
 # Following module need an installation on the system. User terminal:
 # sudo cpan JSON::Parse
 use JSON;
 use Data::Dumper;
 
-my $time=time;
+#Nicht benötigt
+#my $time=time;
 
 
 #http get in LWP:Simple Bsp:
@@ -38,4 +43,5 @@ print "Max:         " . $text->{data}{max}[1], "\n";
 print "Min:         " . $text->{data}{min}[1], "\n";
 print "Average:     " . $text->{data}{average}, "\n";
 print "Comsumption: " . $text->{data}{consumption}, "\n";
-
+}
+1; #Give back true value
